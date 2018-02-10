@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Rock Paper Scissors Part 2
+  </title>
+  <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body onload="loadPlaceHolder()">
+
+  <script type="text/javascript">
+
+    /*var arrSuperHeros = ["DEADPOOL", "CAPTAIN AMERICA", "SPIDERMAN", "CAPTAIN UNIVERSE", "HULK", "THOR", "IRON MAN", "BLACK WIDOW", "DAREDEVIL", "CAPTAIN MARVEL", "WOLVERINE", "ROCKET RACCOON", "GAMORA", "GROOT", "YONDU", "NOVA", "SILVER SURFER", "DOCTOR OCTOPUS", "DARKSTAR", "ELEKTRA", "ANT MAN", "GARGOYLE", "HAWKEYE", "HERCULES"];*/
+    //init array
+    var arrSuperHeros = ["SPIDERMAN", "WOLVERINE", "CAPTAIN AMERICA", "DEADPOOL", "CAPTAIN UNIVERSE", "HULK"];
+    //init vars
+    var computerRandom = "";
+    var placeHolder = "";
+    var lettersGuessed = "";
+    var guessesRemaining = 12;
+    var wins = 0;
+    var losses = 0;
+
+    //console.log(computerGuess.length + " " +computerGuess);
+    //load when user wins/loses/start game
+    function loadPlaceHolder() {
+        computerRandom = arrSuperHeros[Math.floor(Math.random() * arrSuperHeros.length)];
+        var search = computerRandom.indexOf(" ");
+
+        placeHolder = document.getElementById("place-holder").innerHTML = "_".repeat(computerRandom.length);
+        
+            if (search != -1) {
+                placeHolder = placeHolder.substr(0, search) + ' ' + placeHolder.substr(search + 1);
+                placeHolder = document.getElementById("place-holder").innerHTML = placeHolder;
+            }
+
+        guessesRemaining = 12;
+        lettersGuessed = "";
+        document.getElementById("guesses-remaining").innerHTML = guessesRemaining;
+        document.getElementById("letters-guessed").innerHTML = "";
+    }
+
+    function replaceAt(string, index, replace) {
+        return string.substring(0, index) + replace + string.substring(index + 1);
+    }
+
+    // Function to check letters and numbers
+     function isLetter(str) {
+      return str.length === 1 && str.match(/[a-zA-Z]/i);
+    }
+ 
+    // This function is run whenever the user presses a key.
+    document.onkeypress = function(event) {
+
+        // Determines which key was pressed.
+        var userGuess = event.key;
+        var checkIfAlpha = isLetter(userGuess);
+        //make sure character is A-Z, if not assign it to nothing
+        if (checkIfAlpha === null) {
+            userGuess = "";
+        }
+
+        //search for letter in random string
+        var search = computerRandom.indexOf(userGuess.toUpperCase());
+
+        //found a letter match!
+        if (search != -1) {
+
+            //replace all occurences of user guess letter
+            for(var i=0; i<computerRandom.length;i++) {
+                if (computerRandom[i] === userGuess.toUpperCase()) {
+                  placeHolder = replaceAt(placeHolder, i, userGuess);
+                  document.getElementById("place-holder").innerHTML = placeHolder;
+                }
+            }
+            //search for underscore in placeholder string           
+            var search = placeHolder.indexOf("_");
+            //if no underscores you are a winner!
+            if (search === -1) {
+                var strWinner = "YOU ARE A WINNER! " + placeHolder + " IS THE MARVEL CHARACTER!";
+                document.getElementById("winner").innerHTML = strWinner;
+                wins++;
+                document.getElementById("wins").innerHTML = wins;
+
+                if (computerRandom === "SPIDERMAN") {
+                        var customImage = 'assets/images/spiderman.jpg';
+                        document.getElementById("place-image").src = customImage;
+                } else if (computerRandom === "WOLVERINE"){
+                        var customImage = 'assets/images/wolverine.jpg';
+                        document.getElementById("place-image").src = customImage;
+                } else if (computerRandom === "CAPTAIN AMERICA"){
+                        var customImage = 'assets/images/captain-america.jpg';
+                        document.getElementById("place-image").src = customImage;
+                } else if (computerRandom === "DEADPOOL"){
+                        var customImage = 'assets/images/deadpool.jpg';
+                        document.getElementById("place-image").src = customImage;
+                } else if (computerRandom === "CAPTAIN UNIVERSE"){
+                        var customImage = 'assets/images/captain-universe.jpg';
+                        document.getElementById("place-image").src = customImage;
+                } else if (computerRandom === "HULK"){
+                        var customImage = 'assets/images/hulk.jpg';
+                        document.getElementById("place-image").src = customImage;
+                }
+
+                loadPlaceHolder();
+
+            } 
+
+          //did not find a letter match
+        } else {
+        //check if user is out of guesses
+        if (guessesRemaining != 1) {
+            search = lettersGuessed.indexOf(userGuess);
+
+            //could not find userGuess in lettersGuessed
+            if (search === -1) {
+                //subtract 1 from guessesRemaining and write out to HTML
+                guessesRemaining = guessesRemaining - 1;
+                document.getElementById("guesses-remaining").innerHTML = guessesRemaining;
+                //format lettersGuessed variable and write out to HTML
+                if (lettersGuessed.length === 0) {
+                      lettersGuessed = userGuess;
+                } else {
+                      lettersGuessed = lettersGuessed + " " + userGuess;
+                }
+                document.getElementById("letters-guessed").innerHTML = lettersGuessed.toUpperCase();
+            }
+
+        //user is out of guesses
+        } else {
+            var strLoser = "YOU ARE OUT OF GUESSES. THE MARVEL CHARACTER WAS " + computerRandom;
+            document.getElementById("winner").innerHTML = strLoser;
+            losses++;
+            document.getElementById("losses").innerHTML = losses;
+            loadPlaceHolder();
+        }
+        }
+
+    }
+
+  </script>
+
+    <div class="media ">
+      <div class="media-left">
+        <img class="media-object" id="place-image" src="assets/images/marvel.jpg" alt="Marvel">  
+          <div class="panel panel-default panel-custom">
+           <div class="well custom-start">
+              <p>PRESS ANY KEY TO GET STARTED!</p><p id="winner"></p>
+            </div>    
+            <div class="well guesses-remain">
+              <p>NUMBER OF GUESSES REMAINING:</p><p id="guesses-remaining">12</p>
+            </div>
+            <div class="well panel-custom2">
+              <p>WINS:</p><p id="wins" class=>0</p>
+              <p>LOSSES:</p><p id="losses" class=>0</p>
+            </div>
+
+          <div class="well current-word1">
+            <div class="panel-body">
+              <p>CURRENT WORD:</p><p id="current-word"></p>
+            </div>
+            <div class="panel-body panel-custom3">
+              <p id="place-holder"></p>
+            </div>
+          </div>
+
+            <div class="well panel-custom4">
+              <p>LETTERS ALREADY GUESSED:</p><p id="letters-guessed"></p>
+            </div>
+ 
+          </div>
+      </div>
+    </div>
+
+</body>

@@ -1,0 +1,108 @@
+#place-holder {
+	letter-spacing: 10px;
+	font-size: 50px;
+}
+
+p {
+	font-family: 'Rock Salt', cursive;
+	text-align: center;
+	color: white;
+}
+
+body {
+	background-color: black;
+}
+
+
+place-holder {
+	letter-spacing: 10px;
+	font-size: 50px;
+}
+
+p {
+	font-family: 'Rock Salt', cursive;
+	text-align: center;
+	color: white;
+
+}
+
+
+.customc {
+	
+	margin: 0 auto;
+}
+
+img {
+    position: absolute;
+    width:  900px;
+    height: 700px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+    top: 35px;
+    left: 40px;
+
+}
+
+.panel-custom {
+	float:right;
+	position: relative;
+	margin-left: 950px;
+	width: 600px;
+	height: 700px;
+	background: black;
+	top: 20px;
+}
+
+.panel-custom2 {
+	background-color: black;
+	margin: 0;
+	margin-left: 30px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+    color: white;
+    width:150px;
+}
+
+
+.panel-custom3 {
+	background-color: black;
+	margin: 0;
+	margin-left: 30px;
+	margin-right: 30px;
+    color: white;
+}
+
+.panel-custom4 {
+	background-color: black;
+	margin-top: 15px;
+	margin-left: 30px;
+	margin-right: 30px;
+    color: white;
+}
+
+.custom-start {
+	background-color: red;
+
+}
+
+.guesses-remain {
+	float: right;
+	color:black;
+	margin-right: 30px;
+	width: 350px;
+	height: 160px;
+	background-color: black;
+	padding-top: 40px;
+}
+
+.current-word1 {
+	color:black;
+	margin-right: 30px;
+	margin-top: 15px;
+	margin-right: 30px;
+	width: 550px;
+	height: 270px;
+	background-color: black;
+	margin: 0 auto;
+}
